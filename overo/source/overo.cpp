@@ -5,7 +5,7 @@
  * Contains the main loop.
  */
 
-#include <overo.h>
+#include "overo.h"
 
 int main(int argc, char** argv)
 {

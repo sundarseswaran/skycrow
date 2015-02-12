@@ -5,34 +5,34 @@
  * Contains all the required functions besides main().
  */
 
-#include <overo.h>
-#include <test.h>
+#include "overo.h"
+#include "test.h"
 
 // Sets the proper serial options and initializes the serial handle.
 void setupSerialPort()
 {
 	// Reset the serial config object.
-	memset(&serialconfig, 0, sizeof(serialconfig));
+	memset(&serialConfig, 0, sizeof(serialConfig));
 
 	// Turn off all special input modes.
-    serialconfig.c_iflag=0;
+    serialConfig.c_iflag=0;
 
     // Turn off all special output modes.
-    serialconfig.c_oflag=0;
+    serialConfig.c_oflag=0;
 
     // CS8 => 8-bit packes, CREAD => Enable receiving, CLOCAL => Ignore modem control lines.
-    serialconfig.c_cflag=CS8|CREAD|CLOCAL;
+    serialConfig.c_cflag=CS8|CREAD|CLOCAL;
 
     // Turn off all special local modes.
-    serialconfig.c_lflag=0;
+    serialConfig.c_lflag=0;
 
     // The port's read() function will always return immediately.
-    serialconfig.c_cc[VMIN]=0;
-    serialconfig.c_cc[VTIME]=0;
+    serialConfig.c_cc[VMIN]=0;
+    serialConfig.c_cc[VTIME]=0;
 
     // Set the baud I/O rates to 115200
-    cfsetospeed(&serialconfig, B115200);
-    cfsetispeed(&serialconfig, B115200);
+    cfsetospeed(&serialConfig, B115200);
+    cfsetispeed(&serialConfig, B115200);
 
     // Open the serial port with read and write
     serialFd = open(serialName, O_RDWR);
@@ -42,13 +42,13 @@ void setupSerialPort()
     }
 
     // Apply the configuration
-	tcsetattr(serialFd, TCSANOW, &serialconfig);
+	tcsetattr(serialFd, TCSANOW, &serialConfig);
 }
 
 // Initializes the camera controller.
 void setupCamera()
 {
-	cam = new VideoCapture(0);
+	cam = new cv::VideoCapture(0);
 	if (cam->isOpened())
 	{
 		ERROR("Camera failed to open.");
@@ -64,32 +64,32 @@ void setupDatabase()
 	int db_error;
 
 	// Create the format string used by strftime()
-	char db_filename_format[30] = "%y-%m-%d-%H-%M-%S"
-	strcat(&db_filename_format, &databaseExtension);
+	char db_filename_format[30] = "%y-%m-%d-%H-%M-%S";
+	strcat(db_filename_format, databaseExtension);
 
 	now_in_seconds = time(0);	// Get the current time in seconds
-	now_date = *localtime(now_in_seconds);	// Convert the current time in seconds to a date format
-	strftime(db_filename, sizeof(now_string), db_filename_format, &now_date); // Use the current date/time as the database filename
+	now_date = *localtime(&now_in_seconds);	// Convert the current time in seconds to a date format
+	strftime(db_filename, sizeof(db_filename), db_filename_format, &now_date); // Use the current date/time as the database filename
 
 	// Create the mission database
-	db_error = sqlite3_open(&db_filename, database);
+	db_error = sqlite3_open(db_filename, &database);
 	if (db_error)
 	{
-		ERROR("Failed to open database.")
+		ERROR("Failed to open database.");
 	}
 
 	// Create the "pictures" table in the database.
-	db_error = sqlite3_exec(database, &sql_createTable);
+	db_error = sqlite3_exec(database, sql_createTable);
 	if (db_error)
 	{
-		ERROR("Failed to create table.")
+		ERROR("Failed to create table.");
 	}
 
 	// Compile insert statement into bytecode
-	db_error = sqlite3_prepare(database, sql_storeMetadata, -1, insertStatement);
+	db_error = sqlite3_prepare(database, sql_storeMetadata, -1, &insertStatement);
 	if (db_error)
 	{
-		ERROR("Failed to prepare insert statement.")
+		ERROR("Failed to prepare insert statement.");
 	}
 }
 
@@ -164,18 +164,19 @@ void capturePhoto()
 {
 	// Generate photo filename from a random UUID.
 	char pictureFilename[41]; //36 uuid characters, the dot, 3 extension characters, and null
+	char* filenameExt = &pictureFilename+36
 	uuid_t uuid;
 	uuid_generate_random(uuid);
 	uuid_unparse(uuid, pictureFilename);
 	
 	// Add an extension to the filename
-	memcpy(&pictureExtension, &pictureFilename+36);
+	memcpy(&pictureExtension, filenameExt);
 
 	// TODO - add a path to the filename
 
 	// Capture and save a picture
 	cap >> image;
-	imwrite(pictureFilename, image);
+	cv::imwrite(pictureFilename, image);
 
 	// Store the current position as the old position.
 	memcpy(&oldPosition, &position, sizeof(position_t));
@@ -188,7 +189,7 @@ void capturePhoto()
 }
 
 // Stores the latitude, longitude, altitude, and attitude of the aircraft for a particular picture file in the database.
-void storeMetadata(char[] pictureFilename)
+void storeMetadata(char pictureFilename[])
 {
 	int db_error;
 
@@ -196,68 +197,68 @@ void storeMetadata(char[] pictureFilename)
 	db_error = sqlite3_bind_text(insertStatement, 1, pictureFilename, -1, null);
 	if (db_error)
 	{
-		ERROR("Failed to bind the picture filename.")
+		ERROR("Failed to bind the picture filename.");
 	}
 
 	// Add current time in seconds to insert statement.
 	db_error = sqlite3_bind_int(insertStatement, 2, (int)time(0));
 	if (db_error)
 	{
-		ERROR("Failed to bind the current time.")
+		ERROR("Failed to bind the current time.");
 	}
 
 	// Add current lattitude to insert statement.
 	db_error = sqlite3_bind_int(insertStatement, 3, position.lat);
 	if (db_error)
 	{
-		ERROR("Failed to bind the latitude.")
+		ERROR("Failed to bind the latitude.");
 	}
 
 	// Add current longitude to insert statement.
 	db_error = sqlite3_bind_int(insertStatement, 4, position.lon);
 	if (db_error)
 	{
-		ERROR("Failed to bind the longitude.")
+		ERROR("Failed to bind the longitude.");
 	}
 
 	// Add current altitude to insert statement.
 	db_error = sqlite3_bind_int(insertStatement, 5, position.alt);
 	if (db_error)
 	{
-		ERROR("Failed to bind the altitude.")
+		ERROR("Failed to bind the altitude.");
 	}
 
 	// Add current roll to insert statement.
 	db_error = sqlite3_bind_double(insertStatement, 6, attitude.roll);
 	if (db_error)
 	{
-		ERROR("Failed to bind the roll.")
+		ERROR("Failed to bind the roll.");
 	}
 
 	// Add current pitch to insert statemetn
 	db_error = sqlite3_bind_double(insertStatement, 7, attitude.pitch);
 	if (db_error)
 	{
-		ERROR("Failed to bind the pitch.")
+		ERROR("Failed to bind the pitch.");
 	}
 
 	// Add current yaw to insert statement
 	db_error = sqlite3_bind_double(insertStatement, 8, attitude.yaw);
 	if (db_error)
 	{
-		ERROR("Failed to bind the yaw.")
+		ERROR("Failed to bind the yaw.");
 	}
 
 	// Execute the insert statement.
 	db_error = sqlite3_step(insertStatement);
 	if (db_error != SQLITE_DONE)
 	{
-		ERROR("Failed to execute the insert statement.")
+		ERROR("Failed to execute the insert statement.");
 	}
 
 	db_error = sqlite3_clear_bindings(insertStatement);
 	if (db_error != SQLITE_DONE)
 	{
-		ERROR("Failed to clear the bindings.")
+		ERROR("Failed to clear the bindings.");
 	}
 }

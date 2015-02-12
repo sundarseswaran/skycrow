@@ -5,7 +5,7 @@
  * Contains the test preprocessor directives used in this project.
  */
 
-#define ALERT(msg) cout << #__FILE__ ": " #__LINE__ ": " #msg << endl
+#define ALERT(msg) cout << #msg << endl
 #define ERROR(e) ALERT("ERROR " #e)
 #define ASSERT(x) if (!##x##) ERROR(#x " is not true")
 

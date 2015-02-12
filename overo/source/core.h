@@ -11,4 +11,4 @@ void setupDatabase();
 void checkMavlink();
 void checkPosition();
 void capturePhoto();
-void storeMetadata(char[] pictureFilename);
+void storeMetadata(char pictureFilename[]);
