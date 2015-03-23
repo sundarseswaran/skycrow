@@ -79,14 +79,14 @@ void setupDatabase()
 	}
 
 	// Create the "pictures" table in the database.
-	db_error = sqlite3_exec(database, sql_createTable);
+	db_error = sqlite3_exec(database, sql_createTable, NULL, NULL, NULL);
 	if (db_error)
 	{
 		ERROR("Failed to create table.");
 	}
 
 	// Compile insert statement into bytecode
-	db_error = sqlite3_prepare(database, sql_storeMetadata, -1, &insertStatement);
+	db_error = sqlite3_prepare(database, sql_storeMetadata, -1, &insertStatement, NULL);
 	if (db_error)
 	{
 		ERROR("Failed to prepare insert statement.");
@@ -164,18 +164,18 @@ void capturePhoto()
 {
 	// Generate photo filename from a random UUID.
 	char pictureFilename[41]; //36 uuid characters, the dot, 3 extension characters, and null
-	char* filenameExt = &pictureFilename+36
+	char* filenameExt = &pictureFilename[0] + 36;
 	uuid_t uuid;
 	uuid_generate_random(uuid);
 	uuid_unparse(uuid, pictureFilename);
 	
 	// Add an extension to the filename
-	memcpy(&pictureExtension, filenameExt);
+	memcpy(filenameExt, &pictureExtension, 4*sizeof(char));
 
 	// TODO - add a path to the filename
 
 	// Capture and save a picture
-	cap >> image;
+	*cam >> image;
 	cv::imwrite(pictureFilename, image);
 
 	// Store the current position as the old position.
@@ -194,7 +194,7 @@ void storeMetadata(char pictureFilename[])
 	int db_error;
 
 	// Add picture filename to insert statement.
-	db_error = sqlite3_bind_text(insertStatement, 1, pictureFilename, -1, null);
+	db_error = sqlite3_bind_text(insertStatement, 1, pictureFilename, -1, NULL);
 	if (db_error)
 	{
 		ERROR("Failed to bind the picture filename.");

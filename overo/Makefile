@@ -35,7 +35,7 @@ $(BUILD_PATH)tcore.o: $(SOURCE_PATH)core.cpp
 
 # Build SQLite
 $(BUILD_PATH)sqlite3.o: deps/sqlite/sqlite3.c
-	$(CXX) -c $< -o $(BUILD_PATH)sqlite3.o
+	$(CXX) -c $< -o $(BUILD_PATH)sqlite3.o -D SQLITE_OMIT_LOAD_EXTENSION -ldl
 
 # Generic build rule for any object file
 $(BUILD_PATH)%.o: $(SOURCE_PATH)%.cpp

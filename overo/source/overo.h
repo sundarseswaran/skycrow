@@ -15,8 +15,11 @@
 #include <stdio.h>
 #include <uuid/uuid.h>
 #include <time.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-#include "../deps/mavlink/common/mavlink.h"
+//#include "../deps/mavlink/common/mavlink.h"
+#include "../deps/mavlink/ardupilotmega/mavlink.h"
 #include "../deps/sqlite/sqlite3.h"
 #include <opencv2/opencv.hpp>
 #include "core.h"
