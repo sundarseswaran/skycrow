@@ -1,0 +1,275 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pictu",
+				"pictureFilename"
+			],
+			[
+				"pic",
+				"pictureFilename"
+			],
+			[
+				"file",
+				"filenameExt"
+			],
+			[
+				"pire",
+				"pictureFilename"
+			],
+			[
+				"def",
+				"define"
+			],
+			[
+				"seri",
+				"serialFd"
+			],
+			[
+				"SERIA",
+				"serialFd"
+			],
+			[
+				"print",
+				"printMenu"
+			],
+			[
+				"build",
+				"BUILD_PATH"
+			],
+			[
+				"out",
+				"OUTPUT_PATH"
+			],
+			[
+				"OPENCV",
+				"OPENCV_PATH"
+			],
+			[
+				"sourc",
+				"SOURCE_PATH"
+			],
+			[
+				"Optical",
+				"OpticalFlow"
+			],
+			[
+				"OPE",
+				"OPENCV_LIBS"
+			],
+			[
+				"Op",
+				"OpticalFlow"
+			],
+			[
+				"OPEN",
+				"OpenCV"
+			],
+			[
+				"open",
+				"OPENCV_PATH"
+			],
+			[
+				"op",
+				"OPENCV_LIB"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 142.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 898.0
+	},
+	"console":
+	{
+		"height": 252.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/littlejon/Source/skycrow/overo/source/overo.cpp",
+		"/home/littlejon/Source/skycrow/overo/source/test.cpp",
+		"/home/littlejon/Source/skycrow/overo/source/test.h",
+		"/home/littlejon/Source/skycrow/overo/source/core.h",
+		"/home/littlejon/Source/skycrow/overo/source/core.cpp",
+		"/home/littlejon/Source/skycrow/overo/source/overo.h",
+		"/home/littlejon/Source/skycrow/overo/Makefile",
+		"/home/littlejon/Source/skycrow/overo/deps/sqlite/sqlite3ext.h",
+		"/home/littlejon/Source/skycrow/overo/test.h",
+		"/home/littlejon/Source/skycrow/overo/test.cpp",
+		"/home/littlejon/Source/skycrow/overo/core.h",
+		"/home/littlejon/Source/skycrow/overo/core.cpp",
+		"/home/littlejon/Source/skycrow/overo/overo.h",
+		"/home/littlejon/Source/skycrow/overo/overo.cpp",
+		"/home/littlejon/Source/optical-flow/OpticalFlow/Makefile",
+		"/home/littlejon/Source/opencv-3.0.0-beta/Makefile",
+		"/home/littlejon/Source/opencv-3.0.0-beta/opencv2/opencv_modules.hpp",
+		"/home/littlejon/Source/skycrow/overo/main.cpp",
+		"/home/littlejon/Source/skycrow/overo/ideas_test.cpp",
+		"/home/littlejon/Source/skycrow/SkyCrowGum.cpp",
+		"/home/littlejon/Source/SkyCrow/SkyCrowGum.cpp",
+		"/home/littlejon/Source/Optical Flow/Makefile",
+		"/home/littlejon/Source/Optical Flow/OpticalFlow.cpp",
+		"/home/littlejon/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/littlejon/.config/sublime-text-3/Packages/User/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 167.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"exec",
+			"serialconfig",
+			"sqlite",
+			"OUTPUT_PATH",
+			"SOURCE_PATH"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"serialConfig",
+			"OUTPUT_FILES",
+			"SOURCE_FILES"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 40.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "overo.sublime-project",
+	"replace":
+	{
+		"height": 76.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 300.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
